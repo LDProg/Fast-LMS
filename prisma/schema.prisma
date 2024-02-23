@@ -1,0 +1,233 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("CONNECTION_STRING")
+}
+
+model Companies {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  v             Int?      @map("__v")
+  siret         String    @unique
+  companyName   String
+  juridicStatus String
+  apeCode       String
+  address       String
+  zipCode       String
+  city          String
+  civility      String
+  lastName      String
+  firstName     String
+  email         String    @unique
+  phone         String
+  status        String
+  interns       Interns[]
+}
+
+model Interns {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  v               Int?      @map("__v")
+  civility        String?
+  firstName       String?
+  lastName        String
+  birthLastName   String?
+  birthDate       DateTime?
+  email           String?   @unique
+  phone           String?
+  secondPhone     String?
+  address         String?
+  zipCode         String?
+  city            String?
+  country         String?
+  birthCity       String?
+  birthDepartment String?
+  birthZipCode    String?
+
+  status    String?
+  company   Companies? @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String?    @db.ObjectId
+  notes     Notes[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notes {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  v            Int?     @map("__v")
+  content      String
+  priority     String   @default("medium")
+  author       User     @relation(fields: [authorId], references: [id], onDelete: Cascade, name: "author")
+  authorId     String   @db.ObjectId
+  intern       Interns? @relation(fields: [internId], references: [id], onDelete: Cascade)
+  internId     String?  @db.ObjectId
+  // sharedWith   User    @relation(fields: [sharedWithId], references: [id], onDelete: Cascade, name: "sharedWith")
+  sharedWithId String[] @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+  ADMIN
+  SALESFORCE
+  USER
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  firstName     String?   @default("")
+  lastName      String?   @default("")
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  role          UserRole  @default(ADMIN)
+  accounts      Account[]
+  createdNotes  Notes[]   @relation(name: "author")
+  // sharedNotes   Notes[]   @relation(name: "sharedWith")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String   @unique
+  token   String   @unique
+  expires DateTime
+}
+
+model Course {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
+  title       String
+  description String?
+  imageUrl    String?
+  price       Float?
+  isPublished Boolean @default(false)
+
+  categoryId String?   @db.ObjectId
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  chapters    Chapter[]
+  attachments Attachment[]
+  purchases   Purchase[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  publishedAt DateTime?
+
+  @@index([categoryId])
+  @@fulltext([title])
+}
+
+model Category {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  name   String   @unique
+  course Course[]
+}
+
+model Attachment {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  url  String
+
+  courseId String @db.ObjectId
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model Chapter {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+  videoUrl    String?
+  position    Int
+  isPublished Boolean @default(false)
+  isFree      Boolean @default(false)
+
+  muxData MuxData?
+
+  courseId String @db.ObjectId
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  userProgress UserProgress[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  publishedAt DateTime?
+
+  @@index([courseId])
+}
+
+model MuxData {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  assetId    String
+  playbackId String?
+
+  chapterId String  @unique @db.ObjectId
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+}
+
+model UserProgress {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+
+  chapterId String  @db.ObjectId
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  isCompleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, chapterId])
+  @@index([chapterId])
+}
+
+model Purchase {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+
+  courseId String @db.ObjectId
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+}
+
+model StripeCustomer {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String @unique @db.ObjectId
+  stripeCustomerId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
