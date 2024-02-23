@@ -4,8 +4,8 @@ import { SparklesCore } from "@/components/ui/sparkles";
 
 export function SparklesTitle() {
   return (
-    <div className="h-[40rem] w-full bg-background flex flex-col items-center justify-center overflow-hidden rounded-md">
-      <h1 className="md:text-7xl text-3xl lg:text-9xl font-[200] text-center text-white relative z-20">
+    <div className="h-fit w-full bg-background flex flex-col items-center justify-center overflow-hidden rounded-md">
+      <h1 className="md:text-7xl text-3xl lg:text-9xl font-[50] text-center text-white relative z-20">
         Fast LMS
       </h1>
       <div className="w-[40rem] h-40 relative">

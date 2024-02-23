@@ -17,7 +17,7 @@ export const CardWrapper = ({
   setClickRegister,
 }) => {
   return (
-    <Card className="w-[460px] shadow-lg px-6">
+    <Card className="w-[460px] shadow-none px-6">
       <CardHeader className="w-full flex flex-col gap-y-4 items-center justify-center">
         <h1 className="text-4xl font-semibold">🔐</h1>
         <p className="text-muted-foreground text-2xl">{headerLabel}</p>
