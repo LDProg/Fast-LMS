@@ -13,7 +13,7 @@ export function SparklesTitle() {
   return (
     <>
       {typeof window !== "undefined" && window.innerWidth <= 768 ? (
-        <h1 className="absolute top-28 text-5xl font-50 text-center text-white z-20">
+        <h1 className="text-5xl font-50 text-center text-white mb-10">
           Fast LMS
         </h1>
       ) : (
