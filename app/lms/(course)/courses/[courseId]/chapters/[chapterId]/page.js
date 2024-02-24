@@ -1,13 +1,13 @@
 import { Banner } from "@/components/lms/banner";
 import { currentUserId } from "@/lib/auth";
 import { getChapter } from "@/utils/chapters";
-import { redirect } from "next/navigation";
-import { VideoPlayer } from "./_components/video-player";
-import { CourseProgressButton } from "./_components/course-progress-button";
-import { CourseEnrollButton } from "./_components/course-enroll-button";
-import { Button, Spacer } from "@nextui-org/react";
-import { File } from "lucide-react";
+import { Button, Link, Spacer } from "@nextui-org/react";
 import HTMLReactParser from "html-react-parser";
+import { File } from "lucide-react";
+import { redirect } from "next/navigation";
+import { CourseEnrollButton } from "./_components/course-enroll-button";
+import { CourseProgressButton } from "./_components/course-progress-button";
+import { VideoPlayer } from "./_components/video-player";
 
 export default async function LmsChapterIdPage({ params }) {
   const userId = await currentUserId();

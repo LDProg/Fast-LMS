@@ -1,11 +1,10 @@
 import prisma from "@/lib/prisma";
-import { getProgress } from "./user-progress";
 
 export const getDashboardCourses = async (userId) => {
   try {
     const purchasedCourses = await prisma.purchase.findMany({
       where: {
-        userId: userId,
+        userId,
       },
       select: {
         course: {
@@ -21,23 +20,29 @@ export const getDashboardCourses = async (userId) => {
       },
     });
 
-    const courses = purchasedCourses.map((purchase) => purchase.course);
+    // console.log("[GET_DASHBOARD_COURSES]", purchasedCourses);
 
-    for (let course of courses) {
-      const progress = await getProgress(userId, course.id);
-      course["progress"] = progress;
-    }
+    // const courses = purchasedCourses.map((purchase) => purchase.course);
 
-    const completedCourses = courses.filter(
-      (course) => course.progress === 100
-    );
-    const coursesInProgress = courses.filter(
-      (course) => (course.progress ?? 0) < 100
-    );
+    // for (let course of courses) {
+    //   const progress = await getProgress(userId, course.id);
+    //   course["progress"] = progress;
+    // }
+
+    // const completedCourses = courses.filter(
+    //   (course) => course.progress === 100
+    // );
+    // const coursesInProgress = courses.filter(
+    //   (course) => (course.progress ?? 0) < 100
+    // );
+
+    // console.log("[GET_DASHBOARD_COURSES]", {
+    //   completedCourses,
+    //   coursesInProgress,
+    // });
 
     return {
-      completedCourses,
-      coursesInProgress,
+      purchasedCourses,
     };
   } catch (error) {
     console.log("[GET_DASHBOARD_COURSES]", error);

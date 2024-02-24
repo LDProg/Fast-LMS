@@ -1,8 +1,12 @@
 "use client";
 
 import { SparklesCore } from "@/components/ui/sparkles";
+import { useRef } from "react";
 
 export function SparklesTitle() {
+  const windowWidth = useRef(window.innerWidth);
+
+  console.log(windowWidth.current);
   return (
     <div className="h-fit w-full bg-background flex flex-col items-center justify-center overflow-hidden rounded-md">
       <h1 className="md:text-7xl text-5xl lg:text-9xl font-[50] text-center text-white relative z-20">

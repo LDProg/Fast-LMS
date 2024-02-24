@@ -23,6 +23,4 @@ export default async function LmsCourseIdPage({ params }) {
   return redirect(
     `/lms/courses/${course?.id}/chapters/${course?.chapters[0]?.id}`
   );
-
-  return <div>Hello</div>;
 }

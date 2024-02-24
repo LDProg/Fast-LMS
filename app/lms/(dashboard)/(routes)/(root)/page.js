@@ -3,17 +3,32 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { CoursesList } from "@/components/lms/courses-list";
 import { getDashboardCourses } from "@/utils/dashboard-courses";
+import { getProgress } from "@/utils/user-progress";
 import { InfoCard } from "./_components/info-card";
 
 export default async function Dashboard() {
   const session = await auth();
 
   if (!session?.user.id) {
-    return redirect("/auth/signin");
+    return redirect("/auth");
   }
 
-  const { completedCourses, coursesInProgress } = await getDashboardCourses(
-    session?.user.id
+  // const { completedCourses, coursesInProgress } = await getDashboardCourses(
+  //   session?.user.id
+  // );
+
+  const { purchasedCourses } = await getDashboardCourses(session?.user.id);
+
+  const courses = purchasedCourses.map((purchase) => purchase.course);
+
+  for (let course of courses) {
+    const progress = await getProgress(session?.user.id, course.id);
+    course["progress"] = progress;
+  }
+
+  const completedCourses = courses.filter((course) => course.progress === 100);
+  const coursesInProgress = courses.filter(
+    (course) => (course.progress ?? 0) < 100
   );
 
   return (

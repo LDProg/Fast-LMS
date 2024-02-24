@@ -21,6 +21,9 @@ module.exports = withUt({
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)"],
+      },
       backdropBlur: {
         xs: "2px",
       },
