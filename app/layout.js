@@ -1,10 +1,10 @@
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import { Rubik } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers/providers";
 
-const inter = Rubik({
+const inter = Quicksand({
   subsets: ["latin"],
   variable: "--font-inter",
 });

@@ -1,6 +1,6 @@
 export default async function AuthLayout({ children, login, register }) {
   return (
-    <div className="h-screen flex flex-col lg:flex-row items-center justify-center bg-background overflow-hidden px-6">
+    <div className="h-screen flex flex-col lg:flex-row items-center justify-center bg-background overflow-hidden">
       <div className="lg:w-1/2 w-full lg:h-screen flex justify-center items-center overflow-hidden">
         {children}
       </div>

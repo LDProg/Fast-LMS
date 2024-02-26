@@ -13,13 +13,13 @@ export function SparklesTitle() {
   return (
     <>
       {typeof window !== "undefined" && window.innerWidth <= 768 ? (
-        <h1 className="text-5xl font-50 text-center text-white mb-10">
-          Fast LMS
+        <h1 className="text-5xl font-50 text-center text-white mb-[20%] whitespace-nowrap">
+          FAST LMS
         </h1>
       ) : (
         <div className="h-fit w-full bg-background flex flex-col items-center justify-center overflow-hidden rounded-md">
-          <h1 className="md:text-7xl text-5xl lg:text-9xl font-[50] text-center text-white relative z-20">
-            Fast LMS
+          <h1 className="md:text-7xl text-5xl lg:text-9xl font-[50] text-center text-white relative z-20 whitespace-nowrap ">
+            FAST LMS
           </h1>
           <div className="w-[40rem] h-40 relative">
             {/* Gradients */}
