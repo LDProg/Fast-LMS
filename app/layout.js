@@ -12,7 +12,8 @@ const inter = Quicksand({
 
 export const metadata = {
   title: "Fast LMS",
-  description: "Un LMS simple et rapide pour les formateurs et les apprenants",
+  description:
+    "Un LMS simple et rapide pour les formateurs et leurs apprenants",
 };
 
 export default async function RootLayout({ children }) {
