@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SessionProvider } from "next-auth/react";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
@@ -20,7 +21,10 @@ export default async function RootLayout({ children }) {
     <html lang="fr" suppressHydrationWarning className="bg-background">
       <body className={`${inter.variable} font-sans bg-background`}>
         <SessionProvider session={session}>
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+            <SpeedInsights />
+          </Providers>
         </SessionProvider>
       </body>
     </html>
