@@ -4,8 +4,8 @@ import { updateUserProgressAction } from "@/actions/lms/courses/update-user-prog
 import { useConfettiStore } from "@/hooks/confetti-hooks";
 import { cn } from "@/lib/utils";
 import MuxPlayer from "@mux/mux-player-react";
-import { Loader2, Lock } from "lucide-react";
-import {  useRouter } from "next/navigation";
+import { Loader2, Lock, VideoOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -66,9 +66,16 @@ export const VideoPlayer = ({
 
   return (
     <div className="relative aspect-video">
-      {!isReady && !isLocked && (
+      {playbackId ? (
+        !isReady &&
+        !isLocked && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
+            <Loader2 className="h-8 w-8 animate-spin" />
+          </div>
+        )
+      ) : (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
-          <Loader2 className="h-8 w-8 animate-spin" />
+          <VideoOff className="h-8 w-8 animate-spin" />
         </div>
       )}
       {isLocked && (
