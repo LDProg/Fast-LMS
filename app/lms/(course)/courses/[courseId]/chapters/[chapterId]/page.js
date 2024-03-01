@@ -12,7 +12,7 @@ import { VideoPlayer } from "./_components/video-player";
 export default async function LmsChapterIdPage({ params }) {
   const userId = await currentUserId();
 
-  if (!userId) return redirect("/auth/signin");
+  if (!userId) return redirect("/auth");
 
   const {
     chapter,

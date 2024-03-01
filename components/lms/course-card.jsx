@@ -10,7 +10,7 @@ import {
   Image,
   Link,
 } from "@nextui-org/react";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, LoaderIcon } from "lucide-react";
 import { CourseProgress } from "./course-progress";
 
 export const CourseCard = ({
@@ -40,6 +40,7 @@ export const CourseCard = ({
             className="z-0 w-full h-full object-cover"
             alt={title}
             src={imageUrl}
+            fallbackSrc={<LoaderIcon className="h-6 w-6" />}
           />
         ) : (
           <div className="flex items-center justify-center h-60 bg-default-300 rounded-md">

@@ -28,7 +28,7 @@ export const getChapter = async ({ userId, courseId, chapterId }) => {
     if (!chapter || !course)
       return { error: "Le cours ou le chapitre est introuvable." };
 
-    // let muxData = null;
+    let muxData = null;
     let attachments = [];
     let nextChapter = null;
 
@@ -41,11 +41,11 @@ export const getChapter = async ({ userId, courseId, chapterId }) => {
     }
 
     if (chapter.isFree || purchase) {
-      // muxData = await prisma.muxData.findUnique({
-      //   where: {
-      //     chapterId,
-      //   },
-      // });
+      muxData = await prisma.muxData.findUnique({
+        where: {
+          chapterId,
+        },
+      });
 
       nextChapter = await prisma.chapter.findFirst({
         where: {
@@ -70,7 +70,7 @@ export const getChapter = async ({ userId, courseId, chapterId }) => {
     return {
       chapter,
       course,
-      // muxData,
+      muxData,
       attachments,
       nextChapter,
       userProgress,
@@ -81,7 +81,7 @@ export const getChapter = async ({ userId, courseId, chapterId }) => {
     return {
       chapter: null,
       course: null,
-      // muxData: null,
+      muxData: null,
       attachments: [],
       nextChapter: null,
       userProgress: null,
