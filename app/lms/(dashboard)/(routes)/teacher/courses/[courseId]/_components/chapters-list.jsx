@@ -75,11 +75,11 @@ export const ChaptersList = ({ items, onEdit, onReorder }) => {
                     {chapter.title}
                     <div className="ml-auto pr-2 flex items-center gap-x-2">
                       {chapter.isFree && (
-                        <Chip className="text-xs">Gratuit</Chip>
+                        <Chip className="text-xs z-10">Gratuit</Chip>
                       )}
                       <Chip
                         className={cn(
-                          "bg-danger text-xs text-white",
+                          "bg-danger text-xs text-white z-10",
                           chapter.isPublished && "bg-success"
                         )}
                       >

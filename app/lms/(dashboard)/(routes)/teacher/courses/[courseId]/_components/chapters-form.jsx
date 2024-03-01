@@ -85,14 +85,14 @@ export const ChaptersForm = ({ initialData, courseId }) => {
         Chapitres du cours
         <Button
           variant="ghost"
-          className="border-none rounded-sm flex justify-center"
+          className="border-none rounded-sm flex justify-center z-10"
           onClick={toggleCreating}
         >
           {isCreating ? (
             <>Annuler</>
           ) : (
             <>
-              <PlusCircle className="h-4 w-4 mr-2" />
+              <PlusCircle className="h-4 w-4 mr-2 " />
               Ajouter un chapitre
             </>
           )}
