@@ -2,7 +2,6 @@
 
 import { updateUserProgressAction } from "@/actions/lms/courses/update-user-progress-action";
 import { useConfettiStore } from "@/hooks/confetti-hooks";
-import { cn } from "@/lib/utils";
 import { Button } from "@nextui-org/react";
 import { Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -75,8 +74,7 @@ export const CourseProgressButton = ({
       type="button"
       endContent={Icon}
       radius="sm"
-      color={cn("default", isCompleted && "success")}
-      className=" hover:text-white"
+      className="text-white bg-primary"
       variant="flat"
       onClick={onClick}
       isDisabled={isLoading}
