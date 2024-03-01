@@ -75,7 +75,7 @@ export const VideoPlayer = ({
         )
       ) : (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
-          <VideoOff className="h-8 w-8 animate-spin" />
+          <VideoOff className="h-8 w-8" />
         </div>
       )}
       {isLocked && (
