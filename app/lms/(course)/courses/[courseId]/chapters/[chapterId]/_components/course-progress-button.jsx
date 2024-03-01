@@ -77,7 +77,7 @@ export const CourseProgressButton = ({
       radius="sm"
       color={cn("default", isCompleted && "success")}
       className=" hover:text-white"
-      variant={isCompleted ? "light" : "ghost"}
+      variant="flat"
       onClick={onClick}
       isDisabled={isLoading}
     >
